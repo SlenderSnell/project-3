@@ -20,6 +20,7 @@ ul li button {
   cursor: pointer;
   color: #610b65;
   text-decoration: underline;
+  font-weight: bold;
   font-size: 15pt;
 }
 
@@ -33,4 +34,42 @@ ul li button:hover {
 
 .active {
   display: block;
+}
+
+form {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: fit-content;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  border: 3px solid #610b65;
+  background-color: #e0c10d;
+  color: #610b65;
+}
+
+tr {
+  display: flex;
+  border: 3px solid #610b65;
+}
+
+input[type=checkbox] {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 17px;
+  margin-right: 15px;
+}
+
+.delete {
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 7px;
+  height: 35px;
+  width: 35px;
 }

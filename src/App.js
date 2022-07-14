@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import './App.css';
+import data from './mock-data.json';
 
 function App() {
   const [tabSelected, setTabSelected] = useState(0);
+  const [taskDescs, setTaskDescs] = useState(data);
   return (
     <>
     <div className="navbar">
@@ -14,7 +16,30 @@ function App() {
     <div className="tab-content">
       {tabSelected === 0 ? (
         <div id="toDoBox">
-          <p>Test 1</p>
+          <div className='addTask'>
+            <form>
+              <input
+                type="text"
+                name="task"
+                required="required"
+                placeholder='What do you need to do?'
+              />
+              <button type="submit">Add</button>
+            </form>
+          </div>
+          <div className='taskList'>
+            <table>
+              <tbody>
+                {taskDescs.map((taskDesc)=>                 
+                  <tr>
+                    <input type="checkbox"/>
+                    <p>{taskDesc.task}</p>
+                    <button className='delete'/>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       ) : (
         <div id="contactBox">
