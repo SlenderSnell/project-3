@@ -1,10 +1,38 @@
 import { useState } from 'react';
+import { nanoid } from 'nanoid';
 import './App.css';
 import data from './mock-data.json';
+import trash from './trash-can-icon.png';
 
 function App() {
   const [tabSelected, setTabSelected] = useState(0);
   const [taskDescs, setTaskDescs] = useState(data);
+  const [addTaskData, setAddTaskData] = useState({task: ''});
+
+  const handleAddTaskData = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute('name');
+    const fieldValue = event.target.value;
+
+    const newTaskData = { ...addTaskData};
+    newTaskData[fieldName] = fieldValue;
+
+    setAddTaskData(newTaskData);
+  }
+
+  const handleAddTaskSubmit = (event) => {
+    event.preventDefault();
+
+    const newTask = {
+      id: nanoid(),
+      task: addTaskData.task,
+    };
+
+    const newTasks = [...taskDescs, newTask];
+    setTaskDescs(newTasks);
+  }
+
   return (
     <>
     <div className="navbar">
@@ -17,12 +45,13 @@ function App() {
       {tabSelected === 0 ? (
         <div id="toDoBox">
           <div className='addTask'>
-            <form>
+            <form onSubmit={handleAddTaskSubmit}>
               <input
                 type="text"
                 name="task"
                 required="required"
                 placeholder='What do you need to do?'
+                onChange={handleAddTaskData}
               />
               <button type="submit">Add</button>
             </form>
@@ -34,7 +63,7 @@ function App() {
                   <tr>
                     <input type="checkbox"/>
                     <p>{taskDesc.task}</p>
-                    <button className='delete'/>
+                    <button className='delete'><img src={trash} alt="DEL"/></button>
                   </tr>
                 )}
               </tbody>
