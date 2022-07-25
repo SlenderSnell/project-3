@@ -8,6 +8,11 @@ function App() {
   const [tabSelected, setTabSelected] = useState(0);
   const [taskDescs, setTaskDescs] = useState(data);
   const [addTaskData, setAddTaskData] = useState({task: ''});
+  const [addContactInfo, setAddContactInfo] = useState({
+    fullName: '',
+    email: '',
+    comments: ''
+  })
 
   const handleAddTaskData = (event) => {
     event.preventDefault();
@@ -17,7 +22,6 @@ function App() {
 
     const newTaskData = { ...addTaskData};
     newTaskData[fieldName] = fieldValue;
-
     setAddTaskData(newTaskData);
   }
 
@@ -31,6 +35,17 @@ function App() {
 
     const newTasks = [...taskDescs, newTask];
     setTaskDescs(newTasks);
+  }
+
+  const handleAddContactInfo = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute('name');
+    const fieldValue = event.target.value;
+
+    const newContactInfo = {...addContactInfo};
+    newContactInfo[fieldName] = fieldValue;
+    setAddContactInfo(newContactInfo);
   }
 
   return (
@@ -72,7 +87,36 @@ function App() {
         </div>
       ) : (
         <div id="contactBox">
-          <p>Test 2</p>
+          <h2>Contact Us</h2>
+          <form>
+            <input
+              type="text"
+              name="fullName"
+              required="required"
+              placeholder='Please enter your full name'
+              onChange={handleAddContactInfo}
+            />
+            <br/>
+            <br/>
+            <input
+              type="email"
+              name="email"
+              required="required"
+              placeholder='Please enter an email'
+              onChange={handleAddContactInfo}
+            />
+            <br/>
+            <br/>
+            <textarea
+              name="comments"
+              required="required"
+              placeholder='Enter comments here'
+              onChange={handleAddContactInfo}
+            />
+            <br/>
+            <br/>
+            <button type="submit">Submit</button>
+          </form>
         </div>
       )}
     </div>
