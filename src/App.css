@@ -28,14 +28,6 @@ ul li button:hover {
   text-decoration: none;
 }
 
-.hidden {
-  display: none;
-}
-
-.active {
-  display: block;
-}
-
 form {
   margin-left: auto;
   margin-right: auto;
@@ -74,6 +66,20 @@ input[type=checkbox] {
   margin-right: 7px;
   height: 31px;
   width: 40px;
+}
+
+.taskSelection {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.unchecked {
+  display: flex
+}
+
+.checked {
+  display: flex
 }
 
 h2 {

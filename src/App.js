@@ -37,6 +37,14 @@ function App() {
     setTaskDescs(newTasks);
   }
 
+  const handleDeleteClick = (taskId) => {
+    const newTaskDescs = [...taskDescs];
+    const index = taskDescs.findIndex((taskDesc)=> taskDesc.id === taskId);
+
+    newTaskDescs.splice(index, 1);
+    setTaskDescs(newTaskDescs);
+  } 
+
   const handleAddContactInfo = (event) => {
     event.preventDefault();
 
@@ -46,6 +54,60 @@ function App() {
     const newContactInfo = {...addContactInfo};
     newContactInfo[fieldName] = fieldValue;
     setAddContactInfo(newContactInfo);
+  }
+
+  const handleCheckboxClick = (event) => {
+    event.preventDefault();
+
+    const checkbox = event.target;
+
+    if (checkbox.checked) {
+      checkbox.parentElement.classList.remove('unchecked');
+      checkbox.parentElement.classList.add('checked');
+    } else {
+      checkbox.parentElement.classList.remove('checked');
+      checkbox.parentElement.classList.add('unchecked');
+    }
+  }
+
+  const showAllTasks = (event) => {
+    event.preventDefault();
+    
+    const unchLength = document.getElementsByClassName('unchecked').length;
+    for(let i=0;i<unchLength;i++){
+      document.getElementsByClassName('unchecked')[i].style.display='flex';
+    }
+    
+    const chLength = document.getElementsByClassName('checked').length;
+    for(let i=0;i<chLength;i++){
+      document.getElementsByClassName('checked')[i].style.display='flex'; 
+    }
+  }
+  const showUncompleted = (event) => {
+    event.preventDefault();
+
+    const unchLength = document.getElementsByClassName('unchecked').length;
+    for(let i=0;i<unchLength;i++){
+      document.getElementsByClassName('unchecked')[i].style.display='flex';
+    }
+    
+    const chLength = document.getElementsByClassName('checked').length;
+    for(let i=0;i<chLength;i++){
+      document.getElementsByClassName('checked')[i].style.display='none'; 
+    }
+  }
+  const showCompleted = (event) => {
+    event.preventDefault();
+    
+    const unchLength = document.getElementsByClassName('unchecked').length;
+    for(let i=0;i<unchLength;i++){
+      document.getElementsByClassName('unchecked')[i].style.display='none';
+    }
+    
+    const chLength = document.getElementsByClassName('checked').length;
+    for(let i=0;i<chLength;i++){
+      document.getElementsByClassName('checked')[i].style.display='flex'; 
+    }
   }
 
   return (
@@ -75,14 +137,21 @@ function App() {
             <table>
               <tbody>
                 {taskDescs.map((taskDesc)=>                 
-                  <tr>
-                    <input type="checkbox"/>
+                  <tr className='unchecked'>
+                    <input type="checkbox" onChange={handleCheckboxClick}/>
                     <p>{taskDesc.task}</p>
-                    <button className='delete'><img src={trash} alt="DEL"/></button>
+                    <button className='delete' onClick={()=> handleDeleteClick(taskDesc.id)}>
+                      <img src={trash} alt="DEL"/>
+                    </button>
                   </tr>
                 )}
               </tbody>
             </table>
+            <div className='taskSelection'>
+              <button onClick={showAllTasks}>All Tasks</button>
+              <button onClick={showUncompleted}>Uncompleted</button>
+              <button onClick={showCompleted}>Completed</button>
+            </div>
           </div>
         </div>
       ) : (
